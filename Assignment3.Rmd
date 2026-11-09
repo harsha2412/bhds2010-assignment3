@@ -13,7 +13,14 @@ This is the base R markdown file we can populate with our code via branching, th
 
 ```{r, echo=TRUE, warning=FALSE,message=FALSE}
 #Feel free to add any and all packages we might need 
-
+#install.packages("pastecs")
+library(pastecs)
+#install.packages("tidyverse")
+library(tidyverse)
+#install.packages("knitr")
+library(knitr)
+#install.packages("car")
+library(car)
 ```
 
 ##  Data Preparation
