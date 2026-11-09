@@ -26,6 +26,24 @@ library(car)
 ##  Data Preparation
 
 ```{r, echo=TRUE, warning=FALSE,message=FALSE}
+#Reading in csv file and assigning to data frame object named "text_wide" 
+text_wide <- read.csv("TextMessages.csv")
+class(text_wide$Group)
+text_wide$Group <-factor(text_wide$Group,levels=c(1,2))
+
+#In case we need long format data-
+text_long <- pivot_longer(
+  text_wide, 
+  cols= c("Baseline","Six_months"),
+  names_to = "Timepoint",
+  values_to = "Text_count"
+  )
+class(text_long$Timepoint)
+text_long$Timepoint<-factor(text_long$Timepoint)
+
+#Moving participant number to the front
+text_wide <- text_wide |> relocate("Participant")
+text_long <- text_long |> relocate("Participant")
 
 ```
 
