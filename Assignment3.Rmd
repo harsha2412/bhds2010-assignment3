@@ -1,0 +1,45 @@
+---
+title: 'Assignment 3: Github'
+author: "Harsha Helsing, Manya Gupta"
+date: "2026-11-09"
+output: pdf_document
+---
+# Assignment 3: Collaborating in Github
+
+## Introduction
+This is the base R markdown file we can populate with our code via branching, then we can replace this section with the introduction and data description, as well as the planned plots/analyses.
+
+## Installing and Loading Packages
+
+```{r, echo=TRUE, warning=FALSE,message=FALSE}
+#Feel free to add any and all packages we might need 
+
+```
+
+##  Data Preparation
+
+```{r, echo=TRUE, warning=FALSE,message=FALSE}
+
+```
+
+## Visualization 1: Faceted Boxplot of text messages by Group and Time
+
+```{r, echo=TRUE, warning=FALSE,message=FALSE}
+#Code chunk for boxplot
+```
+
+## Visualization 2: Faceted Bar Chart of text messages by Group and Time
+
+```{r, echo=TRUE, warning=FALSE,message=FALSE}
+#Code chunk for bar chart
+```
+
+## Summary Statistics of Text Messages by Group and Time
+
+```{r, echo=TRUE, warning=FALSE,message=FALSE}
+#Code chunk for summary stats 
+```
+
+## Interpretation and conclusions
+
+Any concluding comments in addition to individual interpretations above
