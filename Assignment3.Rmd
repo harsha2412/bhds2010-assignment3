@@ -61,8 +61,26 @@ text_long <- text_long |> relocate("Participant")
 
 ## Summary Statistics of Text Messages by Group and Time
 
-```{r, echo=TRUE, warning=FALSE,message=FALSE}
+```{r, echo=TRUE, warning=FALSE,message=FALSE,results='asis'}
 #Code chunk for summary stats 
+sum_stat<- text_long |> group_by(Group,Timepoint) |> 
+  summarise(
+  N=n(),
+  Mean=mean(Text_count),
+  SD=sd(Text_count),
+  Median=median(Text_count),
+  Min=min(Text_count),
+  Max=max(Text_count),
+  IQR=IQR(Text_count),
+  .groups = "drop_last"
+)
+
+kable(sum_stat,
+  caption="Summary Statistics of Text Messages by Group and Timepoint",
+  digits=2,
+  align="cccc"
+)
+
 ```
 
 ## Interpretation and conclusions
