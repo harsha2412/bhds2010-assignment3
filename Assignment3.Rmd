@@ -117,3 +117,23 @@ kable(sum_stat,
 ## Interpretation and conclusions
 
 Any concluding comments in addition to individual interpretations above
+
+# Summary table conclusions
+
+Overall, both groups demonstrated a reduction in text
+messaging frequency over the six-month period, but the decrease was more
+pronounced in Group 1. While the groups had comparable baseline averages, their
+six-month averages diverged, with Group 1 reporting fewer messages on average
+than Group 2.
+
+These descriptive findings suggest a potentially greater change in messaging
+behavior in Group 1. However, descriptive statistics alone cannot establish
+whether the observed differences are statistically significant or attributable
+to group assignment. Further inferential analysis, such as comparing
+within-group changes and between-group differences in change, would be
+necessary to determine whether the differences represent meaningful
+intervention effects.
+
+One statistical consideration: Because the same participants were measured at
+baseline and six months, a paired analysis would be appropriate for evaluating
+changes within each group.
