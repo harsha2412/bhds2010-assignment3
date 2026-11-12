@@ -62,6 +62,7 @@ text_long <- text_long |> relocate("Participant")
 ## Summary Statistics of Text Messages by Group and Time
 
 ```{r, echo=TRUE, warning=FALSE,message=FALSE,results='asis'}
+
 #We are first grouping the data by the group number and time-point, then
 #computing the summary statistics that we want such as the mean, median, SD,
 #range, etc., using dplyr from tidyverse.
