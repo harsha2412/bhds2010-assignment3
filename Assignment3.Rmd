@@ -50,15 +50,41 @@ text_long <- text_long |> relocate("Participant")
 ## Visualization 1: Faceted Boxplot of text messages by Group and Time
 
 ```{r, echo=TRUE, warning=FALSE,message=FALSE}
-#Code chunk for boxplot
-visualization1<- ggplot(data=text_long,aes(y=Text_count, x=Timepoint, fill=Timepoint))+
+#Creating faceted boxplots of text messages for each group and across the
+#time-points using ggplot() and geom(boxplot). We color-code by time-points and
+#use facet_wrap(~Group) to display the plots side by side.
+
+visualization1<- ggplot(
+  data=text_long,
+  aes(y=Text_count, 
+      x=Timepoint, 
+      fill=Timepoint))+
   geom_boxplot(show.legend=FALSE)+
   facet_wrap(~Group)+
   scale_y_continuous(breaks=seq(from=0, to=100, by=10))+
-  labs(title = "Facet boxplot of text message at each timepoint by group\n",
-       y="Text Count\n")+
+  labs(title = "Facet Boxplots of Text Messages by Time-point and Group\n",
+       y="Text Count\n",
+       x="Time-point")+
   scale_fill_brewer(palette = "Set2")
+
 print(visualization1)
+
+#We can compare the distributions of text messages across time-points (Baseline,
+#6-months) for both groups (1,2) side by side. At baseline, both groups show
+#similar distributions of text message counts, with approximately the same
+#median values of 64/65. The interquartile ranges and overall spread also looks
+#comparable, which suggests that the two groups had similar baseline
+#characteristics.
+
+#At 6 months, we can see a decrease in median text message counts for both
+#groups, though the reduction looks to be more for group 1 (from approximately
+#64 to 58) when compared to group 2 (approximately 65 to 62). There are also
+#noticeable differences in variability between the groups at six months. Group 1
+#has a wider distribution, with several low outliers with values below 20
+#messages as well as higher counts above 75. This suggests greater variability
+#in text counts among participants in Group 1. In contrast, Group 2 has a
+#narrower distribution with relatively higher messaging counts, suggesting more
+#consistent messaging patterns across the participants.
 ```
 
 ## Visualization 2: Faceted Bar Chart of text messages by Group and Time
@@ -76,3 +102,7 @@ print(visualization1)
 ## Interpretation and conclusions
 
 Any concluding comments in addition to individual interpretations above
+
+### Visualization 1 conclusions
+
+Overall, the boxplots suggest a reduction in text messaging frequency in both groups over the six-month period, with a more noticeable shift in Group 1. Additionally, Group 1 demonstrates greater variability in messaging behavior at the six-month time-point, whereas Group 2 shows a more consistent distribution. The presence of several low outliers in Group 1 suggests that changes in messaging frequency may vary considerably among individual participants.
