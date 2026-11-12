@@ -118,7 +118,7 @@ kable(sum_stat,
 
 Any concluding comments in addition to individual interpretations above
 
-# Summary table conclusions
+### Summary table conclusions
 
 Overall, both groups demonstrated a reduction in text
 messaging frequency over the six-month period, but the decrease was more
