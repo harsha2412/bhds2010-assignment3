@@ -62,8 +62,12 @@ text_long <- text_long |> relocate("Participant")
 ## Summary Statistics of Text Messages by Group and Time
 
 ```{r, echo=TRUE, warning=FALSE,message=FALSE,results='asis'}
-#Code chunk for summary stats 
-sum_stat<- text_long |> group_by(Group,Timepoint) |> 
+#We are first grouping the data by the group number and time-point, then
+#computing the summary statistics that we want such as the mean, median, SD,
+#range, etc., using dplyr from tidyverse.
+
+sum_stat<- text_long |> 
+  group_by(Group,Timepoint) |> 
   summarise(
   N=n(),
   Mean=mean(Text_count),
@@ -75,11 +79,20 @@ sum_stat<- text_long |> group_by(Group,Timepoint) |>
   .groups = "drop_last"
 )
 
+#To output a clean table of the summary statistics, we are using the kable
+#function.
+
 kable(sum_stat,
-  caption="Summary Statistics of Text Messages by Group and Timepoint",
+  caption="Summary Statistics of Text Messages by Group and Time-point",
   digits=2,
-  align="cccc"
+  align=c("c","l","c","c","c","c","c","c","c")
 )
+
+#At baseline, the two groups had relatively similar mean numbers of text messages. Group 1 had a mean of 64.84 (SD = 10.68), while Group 2 had a slightly higher mean of 65.60 (SD = 10.84). The similar means and standard deviations suggest that the groups had comparable text messaging patterns at the start of the study.
+
+#At six months, both groups experienced a decrease in the mean number of text messages. However, the magnitude of the decrease differed between groups. Group 1 had a mean of 52.96 (SD = 16.33), representing an average decrease of 11.88 messages from baseline. Group 2 had a smaller decrease, with a mean of 61.84 (SD = 9.41), representing a reduction of 3.76 messages.
+
+#When comparing means to medians, most of the subgroups have similar values hinting at symmetrical distributions. We only see a major difference in the six month time-point for group 1 where the median was higher than the mean, suggesting a left skew to the distribution. There were also differences in the variability of text messaging patterns at six months. Group 1 demonstrated greater variability (SD = 16.33) compared to baseline, suggesting that participants' messaging behaviors became more dispersed. This is also reflected in the wider range of values (9–78). In contrast, Group 2 demonstrated less variability at six months (SD = 9.41), with a narrower range (46–79), suggesting more consistent messaging patterns among participants.
 
 ```
 
