@@ -62,7 +62,7 @@ text_long <- text_long |> relocate("Participant")
 ## Summary Statistics of Text Messages by Group and Time
 
 ```{r, echo=TRUE, warning=FALSE,message=FALSE,results='asis'}
-#Code chunk for summary stats 
+#We are first grouping the data by the group number and timepoint, then computing the summary statistics that we want such as the mean, median, SD, range, etc. 
 sum_stat<- text_long |> group_by(Group,Timepoint) |> 
   summarise(
   N=n(),
@@ -78,7 +78,7 @@ sum_stat<- text_long |> group_by(Group,Timepoint) |>
 kable(sum_stat,
   caption="Summary Statistics of Text Messages by Group and Timepoint",
   digits=2,
-  align="cccc"
+  align=c("c","l","c","c","c","c","c","c","c")
 )
 
 ```
