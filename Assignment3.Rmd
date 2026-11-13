@@ -14,12 +14,16 @@ This is the base R markdown file we can populate with our code via branching, th
 ```{r, echo=TRUE, warning=FALSE,message=FALSE}
 #Feel free to add any and all packages we might need 
 #install.packages("pastecs")
-library(pastecs)
 #install.packages("tidyverse")
-library(tidyverse)
 #install.packages("knitr")
-library(knitr)
 #install.packages("car")
+#install.packages("Hmisc")
+#install.packages("readxl")
+library(readxl)  
+library(Hmisc)
+library(pastecs)
+library(tidyverse)
+library(knitr)
 library(car)
 ```
 
@@ -28,6 +32,8 @@ library(car)
 ```{r, echo=TRUE, warning=FALSE,message=FALSE}
 #Reading in csv file and assigning to data frame object named "text_wide" 
 text_wide <- read.csv("TextMessages.csv")
+print("preview source file")
+head(text_wide, 10) # original data
 class(text_wide$Group)
 text_wide$Group <-factor(text_wide$Group,levels=c(1,2))
 
@@ -44,10 +50,12 @@ text_long$Timepoint<-factor(text_long$Timepoint)
 #Moving participant number to the front
 text_wide <- text_wide |> relocate("Participant")
 text_long <- text_long |> relocate("Participant")
-
+print("preview long file")
+head(text_long)
 ```
 
 ## Visualization 1: Faceted Boxplot of text messages by Group and Time
+
 
 ```{r, echo=TRUE, warning=FALSE,message=FALSE}
 #Creating faceted boxplots of text messages for each group and across the
@@ -85,12 +93,43 @@ print(visualization1)
 #in text counts among participants in Group 1. In contrast, Group 2 has a
 #narrower distribution with relatively higher messaging counts, suggesting more
 #consistent messaging patterns across the participants.
-```
+
+#Code chunk for boxplot
 
 ## Visualization 2: Faceted Bar Chart of text messages by Group and Time
 
-```{r, echo=TRUE, warning=FALSE,message=FALSE}
-#Code chunk for bar chart
+
+```{r vis2, echo=TRUE, warning=FALSE,message=FALSE}
+# 2a creating the bar blots with facets. group on the x axis and timepoint as facets
+  ggplot(text_long, aes(x = Group, y = Text_count, fill = Group)) +                                                                                                                                                                                                                                                          
+    stat_summary(fun = mean, geom = "bar") + # using a 95% CI on the standard error 
+  # for the error capture.
+    stat_summary(fun.data = mean_cl_normal, geom = "errorbar", width = 0.2) +  # printing the mean 
+  # on the plot for easier conclusions
+    stat_summary(fun = mean, geom = "text", aes(label = round(after_stat(y), 1)), vjust= -0.5) + 
+    facet_wrap(~ Timepoint) + # add facet for each group
+    labs(
+      title = " Vis 2a Mean Text Messages by Group and Timepoint",
+      x = "Group",
+      y = "Mean Text Count"
+    ) +
+    scale_fill_brewer(palette = "Set2") + # match Manya's color theme +
+    theme_minimal()
+
+## version 2 with timepoint on the x axis and the group as a facet
+  ggplot(text_long, aes(x = Timepoint, y = Text_count, fill = Timepoint)) +                                                                                                                                                                                                                                                          
+    stat_summary(fun = mean, geom = "bar") + # using a 95% CI on the standard error for the error capture.
+    stat_summary(fun.data = mean_cl_normal, geom = "errorbar", width = 0.2) +  # printing the mean on the 
+    #plot for easier conclusions
+    stat_summary(fun = mean, geom = "text", aes(label = round(after_stat(y), 1)), vjust= -0.5) + 
+    facet_wrap(~ Group) + # add facet for each timepoint 
+    labs(
+      title = "Vis 2b Mean Text Messages by Group and Timepoint",
+      x = "Time Point",
+      y = "Mean Text Count"
+    ) +
+    scale_fill_brewer(palette = "Set2") + # match Manya's color theme
+    theme_minimal()
 ```
 
 ## Summary Statistics of Text Messages by Group and Time
@@ -158,6 +197,14 @@ Any concluding comments in addition to individual interpretations above
 
 Overall, the boxplots suggest a reduction in text messaging frequency in both groups over the six-month period, with a more noticeable shift in Group 1. Additionally, Group 1 demonstrates greater variability in messaging behavior at the six-month time-point, whereas Group 2 shows a more consistent distribution. The presence of several low outliers in Group 1 suggests that changes in messaging frequency may vary considerably among individual participants.
 
+
+
+### Visualization 2 Conclusions 
+
+1. Text count for group 1 has dropped noticeably in the six months later period with wider error bars, suggesting more variability in response in the six month period. This is clearer in Vis 2b. Vis 2a shows that the two groups were very similar in the baseline timepoint,
+
+2. Text count for group 1 has much less pronounced difference between the two periods (65 to 62)
+
 ### Summary table conclusions
 
 Both groups demonstrated a reduction in text messaging frequency over the six-month period, but the decrease was more pronounced in Group 1 (11.88) compared to Group 2 (3.76). While the groups had comparable baseline averages(64.84 and SD = 10.68 for Group 1, 65.60 and SD = 10.84 for Group 2), their six-month averages diverged, with Group 1 (52.96 and SD = 16.33) reporting fewer messages on average than Group 2 (61.84 and SD = 9.41).
@@ -167,3 +214,5 @@ These descriptive findings support the interpretations provided by the boxplots 
 One statistical consideration: Because the same participants were measured at
 baseline and six months, a paired analysis would be appropriate for evaluating
 changes within each group.
+
+
