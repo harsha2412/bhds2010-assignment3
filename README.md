@@ -1,4 +1,5 @@
 # Assignment 3: Collaborating in Github
+Github Repo: https://github.com/harsha2412/bhds2010-assignment3/blob/main/README.md
 
 A collaborative R Markdown analysis hosted on Github of text messaging data across two groups and two timepoint. 
 
