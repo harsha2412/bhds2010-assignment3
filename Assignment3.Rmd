@@ -7,12 +7,15 @@ output: pdf_document
 # Assignment 3: Collaborating in Github
 
 ## Introduction
-This is the base R markdown file we can populate with our code via branching, then we can replace this section with the introduction and data description, as well as the planned plots/analyses.
+The following assignment was conducted collaboratively in Github and involves analysing a dataset saved within the GitHub repository URL: https://github.com/harsha2412/bhds2010.git
+
+The dataset TextMessages.cvs contains information about the number of texts sent by members of two groups (1 and 2) across two time-points (baseline and six months). Our goal is to create and interpret stratified boxplots and bar charts of text messages by group and time, as well as construct a table capturing summary statistics for the two groups by time. The README.md file within the GitHub was updated to reflect each collaborator's contributions to the project and the branching/pull request workflow. The working directory was set to the bhds2010 folder within GitHub.
 
 ## Installing and Loading Packages
 
 ```{r, echo=TRUE, warning=FALSE,message=FALSE}
-#Feel free to add any and all packages we might need 
+#Installing and loading in relevant packages
+
 #install.packages("pastecs")
 #install.packages("tidyverse")
 #install.packages("knitr")
@@ -30,25 +33,34 @@ library(car)
 ##  Data Preparation
 
 ```{r, echo=TRUE, warning=FALSE,message=FALSE}
-#Reading in csv file and assigning to data frame object named "text_wide" 
+#Reading in csv file from GitHub and assigning to data frame object named
+#"text_wide" to distinguish wide format data.
 text_wide <- read.csv("TextMessages.csv")
 print("preview source file")
-head(text_wide, 10) # original data
+head(text_wide, 10) # preview original data
 class(text_wide$Group)
+#The group variable is currently numeric so we used factor() to convert to
+#categorical
 text_wide$Group <-factor(text_wide$Group,levels=c(1,2))
 
-#In case we need long format data-
+#Our visualizations (boxplot, bar chart) and summary statistics will utilize
+#data in long format. We used pivot_longer from tidyr to reshape the data into
+#long format, which will convert the two baseline and six months columns into
+#one column capturing the time-point.
 text_long <- pivot_longer(
   text_wide, 
   cols= c("Baseline","Six_months"),
   names_to = "Timepoint",
   values_to = "Text_count"
   )
+#Checking the class of the newly created column Timepoint 
 class(text_long$Timepoint)
-text_long$Timepoint<-factor(text_long$Timepoint)
+#Since we want R to treat it as a categorical variable instead of a character
+#variable, we again convert using factor() and order the two categories so
+#baseline appears before six months
+text_long$Timepoint<-factor(text_long$Timepoint,levels = c("Baseline","Six_months"))
 
-#Moving participant number to the front
-text_wide <- text_wide |> relocate("Participant")
+#Moving participant number to the front of the data
 text_long <- text_long |> relocate("Participant")
 print("preview long file")
 head(text_long)
@@ -59,8 +71,8 @@ head(text_long)
 
 ```{r, echo=TRUE, warning=FALSE,message=FALSE}
 #Creating faceted boxplots of text messages for each group and across the
-#time-points using ggplot() and geom(boxplot). We color-code by time-points and
-#use facet_wrap(~Group) to display the plots side by side.
+#time-points using ggplot() and geom(boxplot). We color-coded by time-points and
+#used facet_wrap(~Group) to display the plots side by side.
 
 visualization1<- ggplot(
   data=text_long,
@@ -94,19 +106,23 @@ print(visualization1)
 #narrower distribution with relatively higher messaging counts, suggesting more
 #consistent messaging patterns across the participants.
 
-#Code chunk for boxplot
+```
 
 ## Visualization 2: Faceted Bar Chart of text messages by Group and Time
 
 
 ```{r vis2, echo=TRUE, warning=FALSE,message=FALSE}
-# 2a creating the bar blots with facets. group on the x axis and timepoint as facets
+# 2a creating the bar blots with facets. group on the x axis and timepoint as
+# facets
   ggplot(text_long, aes(x = Group, y = Text_count, fill = Group)) +                                                                                                                                                                                                                                                          
-    stat_summary(fun = mean, geom = "bar") + # using a 95% CI on the standard error 
-  # for the error capture.
-    stat_summary(fun.data = mean_cl_normal, geom = "errorbar", width = 0.2) +  # printing the mean 
-  # on the plot for easier conclusions
-    stat_summary(fun = mean, geom = "text", aes(label = round(after_stat(y), 1)), vjust= -0.5) + 
+    stat_summary(fun = mean, geom = "bar") + # using a 95% CI on the standard 
+  # error for the error capture.
+    stat_summary(fun.data = mean_cl_normal, geom = "errorbar", width = 0.2) +  
+  # printing the mean on the plot for easier conclusions
+    stat_summary(fun = mean, 
+                 geom = "text", 
+                 aes(label = round(after_stat(y), 1)), 
+                 vjust= -0.5) + 
     facet_wrap(~ Timepoint) + # add facet for each group
     labs(
       title = " Vis 2a Mean Text Messages by Group and Timepoint",
@@ -118,10 +134,14 @@ print(visualization1)
 
 ## version 2 with timepoint on the x axis and the group as a facet
   ggplot(text_long, aes(x = Timepoint, y = Text_count, fill = Timepoint)) +                                                                                                                                                                                                                                                          
-    stat_summary(fun = mean, geom = "bar") + # using a 95% CI on the standard error for the error capture.
-    stat_summary(fun.data = mean_cl_normal, geom = "errorbar", width = 0.2) +  # printing the mean on the 
-    #plot for easier conclusions
-    stat_summary(fun = mean, geom = "text", aes(label = round(after_stat(y), 1)), vjust= -0.5) + 
+    stat_summary(fun = mean, geom = "bar") + # using a 95% CI on the standard 
+    # error for the error capture.
+    stat_summary(fun.data = mean_cl_normal, geom = "errorbar", width = 0.2) +  
+    # printing the mean on the #plot for easier conclusions
+    stat_summary(fun = mean, 
+                 geom = "text", 
+                 aes(label = round(after_stat(y), 1)), 
+                 vjust= -0.5) + 
     facet_wrap(~ Group) + # add facet for each timepoint 
     labs(
       title = "Vis 2b Mean Text Messages by Group and Timepoint",
