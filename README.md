@@ -1,12 +1,13 @@
 # Assignment 3: Collaborating in Github
 
 A collaborative R Markdown analysis hosted on Github of text messaging data across two groups and two timepoint. 
-Colloaborators: Harsha Helsing and Manya Gupta 
+
+Collaborators: Harsha Helsing and Manya Gupta 
 Responsibilities: 
 1. Github Repo Creation and ReadMe: Harsha 
 2. vis 1: Manya
 3. vis 2: Harsha 
-4. Summary Stats and Desctiption: Manya
+4. Summary Stats and Description: Manya
 
 ## Data Description
 
