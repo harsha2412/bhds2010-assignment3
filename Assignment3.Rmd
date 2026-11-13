@@ -93,7 +93,8 @@ print(visualization1)
 #in text counts among participants in Group 1. In contrast, Group 2 has a
 #narrower distribution with relatively higher messaging counts, suggesting more
 #consistent messaging patterns across the participants.
-```
+
+#Code chunk for boxplot
 
 ## Visualization 2: Faceted Bar Chart of text messages by Group and Time
 
