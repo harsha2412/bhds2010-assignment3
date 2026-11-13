@@ -49,6 +49,8 @@ Each team member worked on a separate branch and submitted a pull request:
 - `feature_branch_vis_2` → PR #1
 - `summary_stats` → PR #2
 
+The same process should be followed for future updates and the README should be updated as needed.
+
 ## Packages Used
 
 readxl, Hmisc, pastecs, tidyverse, knitr, car
