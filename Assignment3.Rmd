@@ -95,8 +95,58 @@ print(visualization1)
 
 ## Summary Statistics of Text Messages by Group and Time
 
-```{r, echo=TRUE, warning=FALSE,message=FALSE}
-#Code chunk for summary stats 
+```{r, echo=TRUE, warning=FALSE,message=FALSE,results='asis'}
+
+#We are first grouping the data by the group number and time-point, then
+#computing the summary statistics that we want such as the mean, median, SD,
+#range, etc., using dplyr from tidyverse.
+
+sum_stat<- text_long |> 
+  group_by(Group,Timepoint) |> 
+  summarise(
+  N=n(),
+  Mean=mean(Text_count),
+  SD=sd(Text_count),
+  Median=median(Text_count),
+  Min=min(Text_count),
+  Max=max(Text_count),
+  IQR=IQR(Text_count),
+  .groups = "drop_last"
+)
+
+#To output a clean table of the summary statistics, we are using the kable
+#function.
+
+kable(sum_stat,
+  caption="Summary Statistics of Text Messages by Group and Time-point",
+  digits=2,
+  align=c("c","l","c","c","c","c","c","c","c")
+)
+
+#The summary table supports the trends observed from the previous plots. At
+#baseline, the two groups had relatively similar mean numbers of text messages.
+#Group 1 had a mean of 64.84 (SD = 10.68), while Group 2 had a slightly higher
+#mean of 65.60 (SD = 10.84). The similar means and standard deviations confirm
+#that the groups had comparable text messaging patterns at the start of the
+#study.
+
+#At six months, both groups experienced a decrease in the mean number of text
+#messages as expected. However, the magnitude of the decrease differed between
+#groups. Group 1 had a mean of 52.96 (SD = 16.33), representing an average
+#decrease of 11.88 messages from baseline. Group 2 had a smaller decrease, with
+#a mean of 61.84 (SD = 9.41), representing a reduction of 3.76 messages.
+
+#When comparing means to medians, most of the subgroups have similar values
+#hinting at symmetrical distributions. We only see a major difference in the six
+#month time-point for group 1 where the median was higher than the mean,
+#suggesting a left skew to the distribution. There were also differences in the
+#variability of text messaging patterns at six months that were seen on the
+#various plots. Group 1 demonstrated greater variability (SD = 16.33) compared
+#to baseline, suggesting that participants' messaging behaviors became more
+#dispersed. This is also reflected in the wider range of values (9–78). In
+#contrast, Group 2 demonstrated less variability at six months (SD = 9.41), with
+#a narrower range (46–79), confirming the more consistent messaging patterns
+#among participants.
 ```
 
 ## Interpretation and conclusions
@@ -105,4 +155,18 @@ Any concluding comments in addition to individual interpretations above
 
 ### Visualization 1 conclusions
 
+<<<<<<< HEAD
 Overall, the boxplots suggest a reduction in text messaging frequency in both groups over the six-month period, with a more noticeable shift in Group 1. Additionally, Group 1 demonstrates greater variability in messaging behavior at the six-month time-point, whereas Group 2 shows a more consistent distribution. The presence of several low outliers in Group 1 suggests that changes in messaging frequency may vary considerably among individual participants.
+
+### Summary table conclusions
+
+Both groups demonstrated a reduction in text messaging frequency over the six-month period, but the decrease was more pronounced in Group 1 (11.88) compared to Group 2 (3.76). While the groups had comparable baseline averages(64.84 and SD = 10.68 for Group 1, 65.60 and SD = 10.84 for Group 2), their six-month averages diverged, with Group 1 (52.96 and SD = 16.33) reporting fewer messages on average than Group 2 (61.84 and SD = 9.41).
+
+These descriptive findings support the interpretations provided by the boxplots and bar charts, and suggest a potentially greater change in messaging behavior in Group 1. However, descriptive statistics alone cannot establish whether the observed differences are statistically significant or attributable to group assignment. Further inferential analysis, such as comparing within-group changes and between-group differences in change, would be necessary to determine whether the differences represent meaningful intervention effects.
+
+One statistical consideration: Because the same participants were measured at
+baseline and six months, a paired analysis would be appropriate for evaluating
+changes within each group.
+=======
+Overall, the boxplots suggest a reduction in text messaging frequency in both groups over the six-month period, with a more noticeable shift in Group 1. Additionally, Group 1 demonstrates greater variability in messaging behavior at the six-month time-point, whereas Group 2 shows a more consistent distribution. The presence of several low outliers in Group 1 suggests that changes in messaging frequency may vary considerably among individual participants.
+>>>>>>> origin/main
