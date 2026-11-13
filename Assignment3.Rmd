@@ -155,6 +155,7 @@ Any concluding comments in addition to individual interpretations above
 
 ### Visualization 1 conclusions
 
+<<<<<<< HEAD
 Overall, the boxplots suggest a reduction in text messaging frequency in both groups over the six-month period, with a more noticeable shift in Group 1. Additionally, Group 1 demonstrates greater variability in messaging behavior at the six-month time-point, whereas Group 2 shows a more consistent distribution. The presence of several low outliers in Group 1 suggests that changes in messaging frequency may vary considerably among individual participants.
 
 ### Summary table conclusions
@@ -166,3 +167,6 @@ These descriptive findings support the interpretations provided by the boxplots 
 One statistical consideration: Because the same participants were measured at
 baseline and six months, a paired analysis would be appropriate for evaluating
 changes within each group.
+=======
+Overall, the boxplots suggest a reduction in text messaging frequency in both groups over the six-month period, with a more noticeable shift in Group 1. Additionally, Group 1 demonstrates greater variability in messaging behavior at the six-month time-point, whereas Group 2 shows a more consistent distribution. The presence of several low outliers in Group 1 suggests that changes in messaging frequency may vary considerably among individual participants.
+>>>>>>> origin/main
