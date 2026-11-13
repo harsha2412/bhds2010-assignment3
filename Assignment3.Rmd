@@ -50,7 +50,41 @@ text_long <- text_long |> relocate("Participant")
 ## Visualization 1: Faceted Boxplot of text messages by Group and Time
 
 ```{r, echo=TRUE, warning=FALSE,message=FALSE}
-#Code chunk for boxplot
+#Creating faceted boxplots of text messages for each group and across the
+#time-points using ggplot() and geom(boxplot). We color-code by time-points and
+#use facet_wrap(~Group) to display the plots side by side.
+
+visualization1<- ggplot(
+  data=text_long,
+  aes(y=Text_count, 
+      x=Timepoint, 
+      fill=Timepoint))+
+  geom_boxplot(show.legend=FALSE)+
+  facet_wrap(~Group)+
+  scale_y_continuous(breaks=seq(from=0, to=100, by=10))+
+  labs(title = "Facet Boxplots of Text Messages by Time-point and Group\n",
+       y="Text Count\n",
+       x="Time-point")+
+  scale_fill_brewer(palette = "Set2")
+
+print(visualization1)
+
+#We can compare the distributions of text messages across time-points (Baseline,
+#6-months) for both groups (1,2) side by side. At baseline, both groups show
+#similar distributions of text message counts, with approximately the same
+#median values of 64/65. The interquartile ranges and overall spread also looks
+#comparable, which suggests that the two groups had similar baseline
+#characteristics.
+
+#At 6 months, we can see a decrease in median text message counts for both
+#groups, though the reduction looks to be more for group 1 (from approximately
+#64 to 58) when compared to group 2 (approximately 65 to 62). There are also
+#noticeable differences in variability between the groups at six months. Group 1
+#has a wider distribution, with several low outliers with values below 20
+#messages as well as higher counts above 75. This suggests greater variability
+#in text counts among participants in Group 1. In contrast, Group 2 has a
+#narrower distribution with relatively higher messaging counts, suggesting more
+#consistent messaging patterns across the participants.
 ```
 
 ## Visualization 2: Faceted Bar Chart of text messages by Group and Time
@@ -89,50 +123,45 @@ kable(sum_stat,
   align=c("c","l","c","c","c","c","c","c","c")
 )
 
-#At baseline, the two groups had relatively similar mean numbers of text
-#messages. Group 1 had a mean of 64.84 (SD = 10.68), while Group 2 had a
-#slightly higher mean of 65.60 (SD = 10.84). The similar means and standard
-#deviations suggest that the groups had comparable text messaging patterns at
-#the start of the study.
+#The summary table supports the trends observed from the previous plots. At
+#baseline, the two groups had relatively similar mean numbers of text messages.
+#Group 1 had a mean of 64.84 (SD = 10.68), while Group 2 had a slightly higher
+#mean of 65.60 (SD = 10.84). The similar means and standard deviations confirm
+#that the groups had comparable text messaging patterns at the start of the
+#study.
 
 #At six months, both groups experienced a decrease in the mean number of text
-#messages. However, the magnitude of the decrease differed between groups. Group
-#1 had a mean of 52.96 (SD = 16.33), representing an average decrease of 11.88
-#messages from baseline. Group 2 had a smaller decrease, with a mean of 61.84
-#(SD = 9.41), representing a reduction of 3.76 messages.
+#messages as expected. However, the magnitude of the decrease differed between
+#groups. Group 1 had a mean of 52.96 (SD = 16.33), representing an average
+#decrease of 11.88 messages from baseline. Group 2 had a smaller decrease, with
+#a mean of 61.84 (SD = 9.41), representing a reduction of 3.76 messages.
 
 #When comparing means to medians, most of the subgroups have similar values
 #hinting at symmetrical distributions. We only see a major difference in the six
 #month time-point for group 1 where the median was higher than the mean,
 #suggesting a left skew to the distribution. There were also differences in the
-#variability of text messaging patterns at six months. Group 1 demonstrated
-#greater variability (SD = 16.33) compared to baseline, suggesting that
-#participants' messaging behaviors became more dispersed. This is also reflected
-#in the wider range of values (9–78). In contrast, Group 2 demonstrated less
-#variability at six months (SD = 9.41), with a narrower range (46–79),
-#suggesting more consistent messaging patterns among participants.
-
+#variability of text messaging patterns at six months that were seen on the
+#various plots. Group 1 demonstrated greater variability (SD = 16.33) compared
+#to baseline, suggesting that participants' messaging behaviors became more
+#dispersed. This is also reflected in the wider range of values (9–78). In
+#contrast, Group 2 demonstrated less variability at six months (SD = 9.41), with
+#a narrower range (46–79), confirming the more consistent messaging patterns
+#among participants.
 ```
 
 ## Interpretation and conclusions
 
 Any concluding comments in addition to individual interpretations above
 
+### Visualization 1 conclusions
+
+Overall, the boxplots suggest a reduction in text messaging frequency in both groups over the six-month period, with a more noticeable shift in Group 1. Additionally, Group 1 demonstrates greater variability in messaging behavior at the six-month time-point, whereas Group 2 shows a more consistent distribution. The presence of several low outliers in Group 1 suggests that changes in messaging frequency may vary considerably among individual participants.
+
 ### Summary table conclusions
 
-Overall, both groups demonstrated a reduction in text
-messaging frequency over the six-month period, but the decrease was more
-pronounced in Group 1. While the groups had comparable baseline averages, their
-six-month averages diverged, with Group 1 reporting fewer messages on average
-than Group 2.
+Both groups demonstrated a reduction in text messaging frequency over the six-month period, but the decrease was more pronounced in Group 1 (11.88) compared to Group 2 (3.76). While the groups had comparable baseline averages(64.84 and SD = 10.68 for Group 1, 65.60 and SD = 10.84 for Group 2), their six-month averages diverged, with Group 1 (52.96 and SD = 16.33) reporting fewer messages on average than Group 2 (61.84 and SD = 9.41).
 
-These descriptive findings suggest a potentially greater change in messaging
-behavior in Group 1. However, descriptive statistics alone cannot establish
-whether the observed differences are statistically significant or attributable
-to group assignment. Further inferential analysis, such as comparing
-within-group changes and between-group differences in change, would be
-necessary to determine whether the differences represent meaningful
-intervention effects.
+These descriptive findings support the interpretations provided by the boxplots and bar charts, and suggest a potentially greater change in messaging behavior in Group 1. However, descriptive statistics alone cannot establish whether the observed differences are statistically significant or attributable to group assignment. Further inferential analysis, such as comparing within-group changes and between-group differences in change, would be necessary to determine whether the differences represent meaningful intervention effects.
 
 One statistical consideration: Because the same participants were measured at
 baseline and six months, a paired analysis would be appropriate for evaluating
